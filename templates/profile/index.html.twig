@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <div class="container">
+        {% if user.profile %}
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">Profile Details</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img class="img-fluid mb-3" src="{{ asset('/uploads/profile/') ~ image_path  }}" alt="">
+                                </div>
+                                <div class="col-md-8">
+                                    <h5>{{ user.username }}</h5>
+                                    <p><strong>Country:</strong> {{ user.profile.country ? user.profile.country : 'N/A' }}</p>
+                                    <p><strong>Address:</strong> {{ user.profile.address ? user.profile.address : 'N/A' }}</p>
+                                    <p><strong>Birthday:</strong> {{ user.profile.birthday ? user.profile.birthday|date('d.m.Y') : 'N/A' }}</p>
+                                    <div class="text-center">
+                                        <a href="{{ path('app_profile_edit', {id: user.profile.id}) }}" class="btn btn-primary">Edit Profile</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">Create Profile</div>
+                        <div class="card-body">
+                            <div class="text-center">
+                                <a href="{{ path('app_profile_new') }}" class="btn btn-primary">Create Profile</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,5 @@
+fos_ck_editor:
+    default_config: my_custom_config
+    configs:
+        my_custom_config:
+            toolbar: [['Bold', 'Italic', '-', 'Link', 'Unlink']]

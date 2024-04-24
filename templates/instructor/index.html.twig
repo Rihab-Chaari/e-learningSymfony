@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Instructor Dashboard{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h2 class="welcome-title">Welcome {{ user.username }}</h2>
+
+        {% if courses is not empty %}
+            <h3 class="mt-4">Your Courses</h3>
+            <div class="row g-4">
+                {% for course in courses %}
+                    {% set courseEntity = course.course %}
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
+                    <div class="course-item bg-light">
+                    <div class="position-relative overflow-hidden">
+                             <img class="img-fluid mb-3" src="{{ asset('uploads/profile/' ~ courseEntity.image) }}" alt=""  style="width: 100%; height: 50%;">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ courseEntity.title }}</h5>
+                                <p class="card-text">{{ courseEntity.description }}</p>
+                                <p class="card-text">Number of Enrollments: <b>{{ courseEntity.enrollments.count() }}</b></p>
+                                {% if courseEntity.enrollments.count() > 0 %}
+                                    <a href="{{ path('app_courses_show_enrollements', {'id': courseEntity.id}) }}" class="btn btn-primary">View Enrollments</a>
+                                {% endif %}
+                                <a href="{{ path('app_courses_show', {'id': courseEntity.id}) }}" class="btn btn-primary">View Course</a>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="mt-4">You do not have any courses to instruct yet.</p>
+        {% endif %}
+
+        <a href="{{ path('app_courses_new') }}" class="btn btn-primary mt-5">Add New Course</a>
+    </div>
+{% endblock %}
